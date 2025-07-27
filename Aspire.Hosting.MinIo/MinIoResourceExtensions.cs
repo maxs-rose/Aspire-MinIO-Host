@@ -1,15 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Aspire.Hosting.ApplicationModel;
-using Aspire.Hosting.S3.Clients;
-using Aspire.Hosting.S3.Models;
+using Aspire.Hosting.MinIo.Clients;
+using Aspire.Hosting.MinIo.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Minio;
 using Minio.DataModel.Args;
 
-namespace Aspire.Hosting.S3;
+namespace Aspire.Hosting.MinIo;
 
 public static class MinIoResourceExtensions
 {

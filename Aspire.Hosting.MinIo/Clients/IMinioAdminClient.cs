@@ -1,6 +1,6 @@
 using Refit;
 
-namespace Aspire.Hosting.S3.Clients;
+namespace Aspire.Hosting.MinIo.Clients;
 
 internal interface IMinioAdminClient
 {

@@ -1,5 +1,5 @@
-using Aspire.Hosting.S3;
-using Aspire.Hosting.S3.Models;
+using Aspire.Hosting.MinIo;
+using Aspire.Hosting.MinIo.Models;
 
 var builder = DistributedApplication.CreateBuilder(args);
 

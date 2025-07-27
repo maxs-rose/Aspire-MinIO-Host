@@ -1,6 +1,6 @@
 using Aspire.Hosting.ApplicationModel;
 
-namespace Aspire.Hosting.S3;
+namespace Aspire.Hosting.MinIo;
 
 public sealed class MinIoBucketResource : Resource, IResourceWithParent<MinIoResource>, IResourceWithConnectionString
 {

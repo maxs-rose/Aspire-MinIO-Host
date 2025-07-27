@@ -1,4 +1,4 @@
-namespace Aspire.Hosting.S3.Models;
+namespace Aspire.Hosting.MinIo.Models;
 
 public enum BucketPolicy
 {

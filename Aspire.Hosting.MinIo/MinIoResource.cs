@@ -1,10 +1,10 @@
 using Aspire.Hosting.ApplicationModel;
-using Aspire.Hosting.S3.Clients;
+using Aspire.Hosting.MinIo.Clients;
 using Microsoft.Net.Http.Headers;
 using Minio;
 using Refit;
 
-namespace Aspire.Hosting.S3;
+namespace Aspire.Hosting.MinIo;
 
 public sealed class MinIoResource : ContainerResource, IResourceWithConnectionString
 {

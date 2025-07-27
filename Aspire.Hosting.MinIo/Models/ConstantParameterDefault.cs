@@ -1,7 +1,7 @@
 using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Publishing;
 
-namespace Aspire.Hosting.S3.Models;
+namespace Aspire.Hosting.MinIo.Models;
 
 internal sealed class ConstantParameterDefault(string value) : ParameterDefault
 {

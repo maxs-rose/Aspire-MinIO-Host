@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Aspire.Hosting.S3\Aspire.Hosting.S3.csproj" IsAspireProjectResource="false" />
+      <ProjectReference Include="..\Aspire.Hosting.MinIo\Aspire.Hosting.MinIo.csproj" IsAspireProjectResource="false" />
     </ItemGroup>
 
 </Project>

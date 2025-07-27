@@ -1,4 +1,4 @@
-namespace Aspire.Hosting.S3;
+namespace Aspire.Hosting.MinIo;
 
 public static class MinIoContainerImageTag
 {
