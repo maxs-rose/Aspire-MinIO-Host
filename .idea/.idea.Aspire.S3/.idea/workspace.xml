@@ -9,9 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aea92f23-23d6-4db9-97d0-00c1a0e41ec3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Aspire.S3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Aspire.S3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppHost/AppHost.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AppHost/AppHost.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIO.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIO.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoContainerImageTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoContainerImageTag.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResourceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResourceExtensions.cs" afterDir="false" />
     </list>
@@ -191,7 +191,7 @@
       <workItem from="1753620428939" duration="5000" />
       <workItem from="1753620458282" duration="2000" />
       <workItem from="1753620479395" duration="24459000" />
-      <workItem from="1753646479480" duration="5537000" />
+      <workItem from="1753646479480" duration="6893000" />
     </task>
     <task id="LOCAL-00001" summary="set private assets on minio lib">
       <option name="closed" value="true" />

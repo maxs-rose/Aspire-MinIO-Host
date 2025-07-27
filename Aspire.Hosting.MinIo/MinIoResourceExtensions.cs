@@ -201,9 +201,9 @@ public static class MinIoResourceExtensions
         return builder;
     }
 
-    public static IResourceBuilder<MinIoBucketResource> WithPolicy(this IResourceBuilder<MinIoBucketResource> builder, [StringSyntax(StringSyntaxAttribute.Json)] string policy)
+    public static IResourceBuilder<MinIoBucketResource> WithPolicy(this IResourceBuilder<MinIoBucketResource> builder, [StringSyntax(StringSyntaxAttribute.Json)] string policyJson)
     {
-        builder.Resource.Policy = policy;
+        builder.Resource.Policy = policyJson;
 
         return builder;
     }
@@ -211,9 +211,9 @@ public static class MinIoResourceExtensions
     /// <remarks>
     ///     Cannot be used if using an image produced after RELEASE.2025-04-08T15-41-24Z-cpuv1
     /// </remarks>
-    public static IResourceBuilder<MinIoPolicyResource> AddPolicy(this IResourceBuilder<MinIoResource> builder, string name, [StringSyntax(StringSyntaxAttribute.Json)] string policy)
+    public static IResourceBuilder<MinIoPolicyResource> AddPolicy(this IResourceBuilder<MinIoResource> builder, string name, [StringSyntax(StringSyntaxAttribute.Json)] string policyJson)
     {
-        var policyResource = new MinIoPolicyResource(name, builder.Resource, policy);
+        var policyResource = new MinIoPolicyResource(name, builder.Resource, policyJson);
 
         builder.Resource.Policies.Add(policyResource);
 
