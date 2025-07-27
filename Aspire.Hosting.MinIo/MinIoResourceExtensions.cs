@@ -73,6 +73,9 @@ public static class MinIoResourceExtensions
 
                 foreach (var policy in tenant.Policies)
                     await CreatePolicy(tenant, policy, e.Services, ct);
+
+                foreach (var user in tenant.Users)
+                    await CreateUser(tenant, user, e.Services, ct);
             });
 
         return minioResource;
@@ -247,6 +250,59 @@ public static class MinIoResourceExtensions
             .WithHealthCheck(healthCheckKey);
     }
 
+    public static IResourceBuilder<MinIoUserResource> AddUser(this IResourceBuilder<MinIoResource> builder, string name, IResourceBuilder<ParameterResource>? secretAccessKey = null)
+    {
+        var user = new MinIoUserResource(
+            builder.Resource,
+            name,
+            secretAccessKey?.Resource ?? ParameterResourceBuilderExtensions.CreateDefaultPasswordParameter(builder.ApplicationBuilder, $"{name}-secretAccessKey"));
+
+        builder.Resource.Users.Add(user);
+
+        var tenantHasStarted = false;
+
+        builder.ApplicationBuilder.Eventing.Subscribe<ConnectionStringAvailableEvent>(
+            builder.Resource,
+            (_, _) =>
+            {
+                tenantHasStarted = true;
+
+                return Task.CompletedTask;
+            });
+
+        var healthCheckKey = $"{user.Name}_user_check";
+        builder.ApplicationBuilder.Services.AddHealthChecks()
+            .AddAsyncCheck(
+                healthCheckKey,
+                async ct =>
+                {
+                    if (!tenantHasStarted)
+                        return HealthCheckResult.Unhealthy("Tenant is not available");
+
+                    var client = await user.Parent.GetAdminClient(ct);
+                    var getResponse = await client.GetUser(user.Name);
+
+                    if (getResponse.StatusCode == HttpStatusCode.Forbidden)
+                        user.Parent.ResetAdminClient();
+
+                    if (!getResponse.IsSuccessStatusCode)
+                        return HealthCheckResult.Unhealthy("User not found");
+
+                    return HealthCheckResult.Healthy();
+                });
+
+        return builder.ApplicationBuilder.AddResource(user)
+            .WithHealthCheck(healthCheckKey);
+    }
+
+    public static IResourceBuilder<MinIoUserResource> WithPolicy(this IResourceBuilder<MinIoUserResource> builder, params IEnumerable<IResourceBuilder<MinIoPolicyResource>> policies)
+    {
+        foreach (var policy in policies.Where(p => !builder.Resource.Policies.Contains(p.Resource)))
+            builder.Resource.AddPolicy(policy.Resource);
+
+        return builder;
+    }
+
     private static async Task CreateBucket(IMinioClient client, MinIoBucketResource bucket, IServiceProvider serviceProvider, CancellationToken ct)
     {
         var logger = serviceProvider.GetRequiredService<ResourceLoggerService>().GetLogger(bucket);
@@ -308,6 +364,48 @@ public static class MinIoResourceExtensions
         catch (Exception exception)
         {
             throw new DistributedApplicationException($"Failed to create MinIO policy '{minIoPolicy.Name}'", exception);
+        }
+    }
+
+    private static async Task CreateUser(MinIoResource tenant, MinIoUserResource user, IServiceProvider serviceProvider, CancellationToken ct)
+    {
+        var logger = serviceProvider.GetRequiredService<ResourceLoggerService>().GetLogger(user);
+
+        try
+        {
+            var client = await tenant.GetAdminClient(ct);
+
+            if (!(await client.GetUser(user.Name)).IsSuccessStatusCode)
+            {
+                var res = await client.CreateUser(new CreateUser(
+                    user.Name,
+                    (await user.SecretAccessKey.GetValueAsync(ct))!,
+                    user.Policies.Select(p => p.Name).ToArray()));
+
+                if (res.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    logger.LogWarning("Authentication expired refreshing token");
+                    tenant.ResetAdminClient();
+                    await CreateUser(tenant, user, serviceProvider, ct);
+                    return;
+                }
+
+                if (!res.IsSuccessStatusCode)
+                {
+                    logger.LogError(res.Error, "User '{UserName}': Failed to create", user.Name);
+                    return;
+                }
+
+                logger.LogDebug("User '{UserName}': Created successfully", user.Name);
+            }
+            else
+            {
+                logger.LogDebug("User '{UserName}': Already exists", user.Name);
+            }
+        }
+        catch (Exception exception)
+        {
+            throw new DistributedApplicationException($"Failed to create MinIO user '{user.Name}'", exception);
         }
     }
 }

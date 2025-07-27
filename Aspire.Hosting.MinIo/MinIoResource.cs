@@ -28,6 +28,7 @@ public sealed class MinIoResource : ContainerResource, IResourceWithConnectionSt
 
     internal List<MinIoBucketResource> Buckets { get; } = [];
     internal List<MinIoPolicyResource> Policies { get; } = [];
+    internal List<MinIoUserResource> Users { get; } = [];
 
     public ParameterResource AccessKey { get; }
     public ParameterResource SecretAccessKey { get; }
@@ -78,15 +79,8 @@ public sealed class MinIoResource : ContainerResource, IResourceWithConnectionSt
         var token = loginResponse.Headers.GetValues("Set-Cookie")
             .Select(v => SetCookieHeaderValue.Parse(v));
 
-        var httpClient = new HttpClient
-        {
-            BaseAddress = new Uri($"http://{await ConsoleEndpoint.Property(EndpointProperty.HostAndPort).GetValueAsync(cancellationToken)}")
-        };
-
         foreach (var cookie in token)
-            httpClient.DefaultRequestHeaders.Add("Cookie", cookie.ToString());
-
-        adminClient = RestService.For<IMinioAdminClient>(httpClient);
+            adminClient.Client.DefaultRequestHeaders.Add("Cookie", cookie.ToString());
 
         return adminClient;
     }

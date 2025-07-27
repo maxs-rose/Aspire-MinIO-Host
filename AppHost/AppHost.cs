@@ -7,8 +7,11 @@ var tenant = builder.AddMinIo("minio");
 
 tenant.AddBucket("some-bucket").WithPolicy(BucketPolicy.Public);
 
-tenant.AddPolicy(
+var policy = tenant.AddPolicy(
     "testpolicy",
     "{\n    \"Version\": \"2012-10-17\",\n    \"Statement\": [\n        {\n            \"Effect\": \"Allow\",\n            \"Action\": [\n                \"s3:PutObject\"\n            ],\n            \"Resource\": [\n                \"arn:aws:s3:::*\"\n            ]\n        }\n    ]\n}");
+
+var user = tenant.AddUser("testuser", builder.AddParameter("accessKey", () => "sometestkey"))
+    .WithPolicy(policy);
 
 builder.Build().Run();
