@@ -67,8 +67,7 @@ public sealed class MinIoResource : ContainerResource, IResourceWithConnectionSt
             return _adminClient;
 
         var adminClient = RestService.For<IMinioAdminClient>($"http://{await ConsoleEndpoint.Property(EndpointProperty.HostAndPort).GetValueAsync(cancellationToken)}");
-
-
+        
         var loginResponse = await adminClient.Login(new LoginRequest(
             $"{await UsernameReference.GetValueAsync(cancellationToken)}",
             $"{await PasswordReference.GetValueAsync(cancellationToken)}"));

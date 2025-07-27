@@ -342,30 +342,30 @@ public static class MinIoResourceExtensions
         {
             var client = await tenant.GetAdminClient(ct);
 
-            if (!(await client.GetPolicy(minIoPolicy.Name)).IsSuccessStatusCode)
-            {
-                var res = await client.CreatePolicy(new CreatePolicy(minIoPolicy.Name, minIoPolicy.Policy));
-
-                if (res.StatusCode == HttpStatusCode.Forbidden)
-                {
-                    logger.LogWarning("Authentication expired refreshing token");
-                    tenant.ResetAdminClient();
-                    await CreatePolicy(tenant, minIoPolicy, serviceProvider, ct);
-                    return;
-                }
-
-                if (!res.IsSuccessStatusCode)
-                {
-                    logger.LogError(res.Error, "Policy '{PolicyName}': Failed to create", minIoPolicy.Name);
-                    return;
-                }
-
-                logger.LogDebug("Bucket '{PolicyName}': Created successfully", minIoPolicy.Name);
-            }
-            else
+            var policy = await client.GetPolicy(minIoPolicy.Name);
+            if (policy.IsSuccessStatusCode)
             {
                 logger.LogDebug("Policy '{PolicyName}': Already exists", minIoPolicy.Name);
+                return;
             }
+
+            var res = await client.CreatePolicy(new CreatePolicy(minIoPolicy.Name, minIoPolicy.Policy));
+
+            if (res.StatusCode == HttpStatusCode.Forbidden)
+            {
+                logger.LogWarning("Authentication expired refreshing token");
+                tenant.ResetAdminClient();
+                await CreatePolicy(tenant, minIoPolicy, serviceProvider, ct);
+                return;
+            }
+
+            if (!res.IsSuccessStatusCode)
+            {
+                logger.LogError(res.Error, "Policy '{PolicyName}': Failed to create", minIoPolicy.Name);
+                return;
+            }
+
+            logger.LogDebug("Bucket '{PolicyName}': Created successfully", minIoPolicy.Name);
         }
         catch (Exception exception)
         {
@@ -381,33 +381,33 @@ public static class MinIoResourceExtensions
         {
             var client = await tenant.GetAdminClient(ct);
 
-            if (!(await client.GetUser(user.Name)).IsSuccessStatusCode)
-            {
-                var res = await client.CreateUser(new CreateUser(
-                    user.Name,
-                    (await user.SecretAccessKey.GetValueAsync(ct))!,
-                    user.Policies.Select(p => p.Name).ToArray()));
-
-                if (res.StatusCode == HttpStatusCode.Forbidden)
-                {
-                    logger.LogWarning("Authentication expired refreshing token");
-                    tenant.ResetAdminClient();
-                    await CreateUser(tenant, user, serviceProvider, ct);
-                    return;
-                }
-
-                if (!res.IsSuccessStatusCode)
-                {
-                    logger.LogError(res.Error, "User '{UserName}': Failed to create", user.Name);
-                    return;
-                }
-
-                logger.LogDebug("User '{UserName}': Created successfully", user.Name);
-            }
-            else
+            var userResponse = await client.GetUser(user.Name);
+            if (userResponse.IsSuccessStatusCode)
             {
                 logger.LogDebug("User '{UserName}': Already exists", user.Name);
+                return;
             }
+
+            var res = await client.CreateUser(new CreateUser(
+                user.Name,
+                $"{await user.SecretAccessKey.GetValueAsync(ct)}",
+                user.Policies.Select(p => p.Name).ToArray()));
+
+            if (res.StatusCode == HttpStatusCode.Forbidden)
+            {
+                logger.LogWarning("Authentication expired refreshing token");
+                tenant.ResetAdminClient();
+                await CreateUser(tenant, user, serviceProvider, ct);
+                return;
+            }
+
+            if (!res.IsSuccessStatusCode)
+            {
+                logger.LogError(res.Error, "User '{UserName}': Failed to create", user.Name);
+                return;
+            }
+
+            logger.LogDebug("User '{UserName}': Created successfully", user.Name);
         }
         catch (Exception exception)
         {

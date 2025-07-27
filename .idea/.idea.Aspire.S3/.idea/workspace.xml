@@ -9,8 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aea92f23-23d6-4db9-97d0-00c1a0e41ec3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIO.sln.DotSettings.user" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Aspire.S3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Aspire.S3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResourceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResourceExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +44,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$APPLICATION_HOME_DIR$/lib/modules/intellij.rider.jar!/schemas/solution/XmlSolution.xsd" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ba4aaa2780646e5ada7d20877c43f4f1b6930/4d/f4b44dea/JsonSerializer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e42134ae4234dcf22b4d256e32e8a938b3de96968480fcb99f1dd0a648624e/ConnectionStringAvailableEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/27c4858128168eda568c1334d70d5241efb9461e2a3209258a04deee5d9c367/JsonSerializer.Read.String.cs" root0="FORCE_HIGHLIGHTING" />
@@ -56,6 +58,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/38adb0366085611982d384a6bbbdc18fac19bc78ee8e44423e5128634808894/ContainerImageAnnotation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3a87117115f04a228f42e9a331dc6f613ce53ab65ae798f3e59b9ca1cd4b8/IResource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/478420d0ad4849dda4ae425793c91e32e2f70ec81dc78b88a8cb40d89d5456/CommandOptions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/49e7457229b1ba323c6b3191c0301d7995b5e084672ea75f621383cdc6c590f1/ResourceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4abaf3afdbcee68b8eea6288d3bd9d0883899cf4a42c19defc8096958bc15c/IResourceWithParentOfT.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/6404997c0f821837f2a771507036647652649aff35310edb36dbb9fc0933a/GetPolicyArgs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/77e85387ae4c327b2fb83d3cde4a317bead49627eb373614258cf8fd40/MinioClient.cs" root0="FORCE_HIGHLIGHTING" />
@@ -68,18 +71,19 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a4f01d1e32696c7e299279caa383f69b818ea3c461f48dd4317d15e363/ParameterResource.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aaad7f4182f2e4c8a6a57568f2538e1bf83531b2fb979a7d4f3ee66b0932cd4/S3Bucket.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ac9987ebc3168beff4393154117f99d63a966d56e2defc880d16fc837e2e3e6/ContainerResourceExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c34912c9228a491e7f8ed952cd6979b76599eed4b6625a04f14d591b844c352/ReferenceExpression.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c34912c9228a491e7f8ed952cd6979b76599eed4b6625a04f14d591b844c352/ReferenceExpression.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c3ac2f803cfae8dce2e7fa3785fa1b3f18535b54ebddc21deba082aed44d8fe3/WaitAnnotation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c41b9e23abcf68e6c67fb27496b1fd1570f2f2db8cbf4d434b6096903a99/ResourceLoggerService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c9ce7c1559dd8cb0c440486ea3bc838f83591d2c88db5038bff25f291ef6c4/AmazonS3Client.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cc97e58d781dea79b618f9ada4f01ffc2b4dc0f350abeab367b379a173bdf2/SetPolicyArgs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d3197ed2427c3d11e446fbd9ad315eeea6f44d4a78ccaff79a1fb852bf3afb5d/IResourceWithoutLifetime.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d515fb889657fcdcace3fed90735057b458ff9e0bb60bded7c8fe8b3a4673c/BucketArgs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d5f877f8f192ec96518ae1b12604f822fe9d2d030cdf8c9ada29b2b831f442f/EndpointReference.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d829bd3380f6fa1abf8507363de63d2f4c16df581627d47f6ad94183227bc/BucketOperations.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d9263dd16a18d381e0f1168d633328cdc4c71e3aae889474dc38ba6259fe/ResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/dabd1d1eda4cee59987a6d63e2a12c8499e2a7db2a8b882ad5838f5f18e939/MinioClientExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f53aac160903b5eeda1e6068ed99622f4bfa8176aee8d7fb5b43b8cb6cb2/IDistributedApplicationBuilder.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f65fc32ab2244ebbbd5bda58b3611eec1882c7099625250c368bb1414ad8/DistributedApplicationException.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f65fc32ab2244ebbbd5bda58b3611eec1882c7099625250c368bb1414ad8/DistributedApplicationException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fce0143111978087b73583f632172bad8b2c69f65ba8bbbeff5555beb2cad6/SetCookieHeaderValue.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ff2c3563238af9d938ad60bf027f1c6696535e224813559fe37fbf1039699d/RequestExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Aspire.Hosting.MinIo/Clients/IMinioAdminClient.cs" root0="FORCE_HIGHLIGHTING" />
@@ -195,7 +199,7 @@
       <workItem from="1753620428939" duration="5000" />
       <workItem from="1753620458282" duration="2000" />
       <workItem from="1753620479395" duration="24459000" />
-      <workItem from="1753646479480" duration="8320000" />
+      <workItem from="1753646479480" duration="10295000" />
     </task>
     <task id="LOCAL-00001" summary="set private assets on minio lib">
       <option name="closed" value="true" />
