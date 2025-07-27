@@ -1,5 +1,8 @@
 using Aspire.Hosting.ApplicationModel;
+using Aspire.Hosting.S3.Clients;
+using Microsoft.Net.Http.Headers;
 using Minio;
+using Refit;
 
 namespace Aspire.Hosting.S3;
 
@@ -10,6 +13,7 @@ public sealed class MinIoResource : ContainerResource, IResourceWithConnectionSt
 
     internal const string ApiEndpointName = "api";
     internal const ushort ApiEndpointPort = 9000;
+    private IMinioAdminClient? _adminClient;
 
     private IMinioClient? _client;
 
@@ -22,7 +26,8 @@ public sealed class MinIoResource : ContainerResource, IResourceWithConnectionSt
         ConsoleEndpoint = new EndpointReference(this, ConsoleEndpointName);
     }
 
-    internal List<MinIoBucketResource> Buckets { get; } = new();
+    internal List<MinIoBucketResource> Buckets { get; } = [];
+    internal List<MinIoPolicyResource> Policies { get; } = [];
 
     public ParameterResource AccessKey { get; }
     public ParameterResource SecretAccessKey { get; }
@@ -48,5 +53,41 @@ public sealed class MinIoResource : ContainerResource, IResourceWithConnectionSt
             .Build();
 
         return _client!;
+    }
+
+    internal void ResetAdminClient()
+    {
+        _adminClient = null;
+    }
+
+    internal async ValueTask<IMinioAdminClient> GetAdminClient(CancellationToken cancellationToken)
+    {
+        if (_adminClient is not null)
+            return _adminClient;
+
+        var adminClient = RestService.For<IMinioAdminClient>($"http://{await ConsoleEndpoint.Property(EndpointProperty.HostAndPort).GetValueAsync(cancellationToken)}");
+
+
+        var loginResponse = await adminClient.Login(new LoginRequest(
+            $"{await UsernameReference.GetValueAsync(cancellationToken)}",
+            $"{await PasswordReference.GetValueAsync(cancellationToken)}"));
+
+        if (!loginResponse.IsSuccessStatusCode)
+            throw new DistributedApplicationException("Failed to login to MinIO console");
+
+        var token = loginResponse.Headers.GetValues("Set-Cookie")
+            .Select(v => SetCookieHeaderValue.Parse(v));
+
+        var httpClient = new HttpClient
+        {
+            BaseAddress = new Uri($"http://{await ConsoleEndpoint.Property(EndpointProperty.HostAndPort).GetValueAsync(cancellationToken)}")
+        };
+
+        foreach (var cookie in token)
+            httpClient.DefaultRequestHeaders.Add("Cookie", cookie.ToString());
+
+        adminClient = RestService.For<IMinioAdminClient>(httpClient);
+
+        return adminClient;
     }
 }

@@ -6,6 +6,6 @@ public static class MinIoContainerImageTag
 
     public const string Image = "minio/minio";
 
-    // public const string Tag = "RELEASE.2025-04-08T15-41-24Z-cpuv1";
-    public const string Tag = "latest";
+    public const string Tag = "RELEASE.2025-04-08T15-41-24Z-cpuv1";
+    // public const string Tag = "latest";
 }

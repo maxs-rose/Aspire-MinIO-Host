@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using Aspire.Hosting.ApplicationModel;
+using Aspire.Hosting.S3.Clients;
 using Aspire.Hosting.S3.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -68,6 +70,9 @@ public static class MinIoResourceExtensions
 
                 foreach (var bucket in tenant.Buckets)
                     await CreateBucket(client, bucket, e.Services, ct);
+
+                foreach (var policy in tenant.Policies)
+                    await CreatePolicy(tenant, policy, e.Services, ct);
             });
 
         return minioResource;
@@ -101,7 +106,7 @@ public static class MinIoResourceExtensions
                 return Task.CompletedTask;
             });
 
-        var healthCheckKey = $"{bucket.Name}_check";
+        var healthCheckKey = $"{bucket.Name}_bucket_check";
         builder.ApplicationBuilder.Services.AddHealthChecks()
             .AddAsyncCheck(
                 healthCheckKey,
@@ -200,6 +205,48 @@ public static class MinIoResourceExtensions
         return builder;
     }
 
+    public static IResourceBuilder<MinIoPolicyResource> AddPolicy(this IResourceBuilder<MinIoResource> builder, string name, [StringSyntax(StringSyntaxAttribute.Json)] string policy)
+    {
+        var policyResource = new MinIoPolicyResource(name, builder.Resource, policy);
+
+        builder.Resource.Policies.Add(policyResource);
+
+        var tenantHasStarted = false;
+
+        builder.ApplicationBuilder.Eventing.Subscribe<ConnectionStringAvailableEvent>(
+            builder.Resource,
+            (_, _) =>
+            {
+                tenantHasStarted = true;
+
+                return Task.CompletedTask;
+            });
+
+        var healthCheckKey = $"{policyResource.Name}_policy_check";
+        builder.ApplicationBuilder.Services.AddHealthChecks()
+            .AddAsyncCheck(
+                healthCheckKey,
+                async ct =>
+                {
+                    if (!tenantHasStarted)
+                        return HealthCheckResult.Unhealthy("Tenant is not available");
+
+                    var client = await policyResource.Parent.GetAdminClient(ct);
+                    var getResponse = await client.GetPolicy(policyResource.Name);
+
+                    if (getResponse.StatusCode == HttpStatusCode.Forbidden)
+                        policyResource.Parent.ResetAdminClient();
+
+                    if (!getResponse.IsSuccessStatusCode)
+                        return HealthCheckResult.Unhealthy("Policy not found");
+
+                    return HealthCheckResult.Healthy();
+                });
+
+        return builder.ApplicationBuilder.AddResource(policyResource)
+            .WithHealthCheck(healthCheckKey);
+    }
+
     private static async Task CreateBucket(IMinioClient client, MinIoBucketResource bucket, IServiceProvider serviceProvider, CancellationToken ct)
     {
         var logger = serviceProvider.GetRequiredService<ResourceLoggerService>().GetLogger(bucket);
@@ -222,6 +269,45 @@ public static class MinIoResourceExtensions
         catch (Exception exception)
         {
             throw new DistributedApplicationException($"Failed to create MinIO bucket '{bucket.Name}'", exception);
+        }
+    }
+
+    private static async Task CreatePolicy(MinIoResource tenant, MinIoPolicyResource minIoPolicy, IServiceProvider serviceProvider, CancellationToken ct)
+    {
+        var logger = serviceProvider.GetRequiredService<ResourceLoggerService>().GetLogger(minIoPolicy);
+
+        try
+        {
+            var client = await tenant.GetAdminClient(ct);
+
+            if (!(await client.GetPolicy(minIoPolicy.Name)).IsSuccessStatusCode)
+            {
+                var res = await client.CreatePolicy(new CreatePolicy(minIoPolicy.Name, minIoPolicy.Policy));
+
+                if (res.StatusCode == HttpStatusCode.Forbidden)
+                {
+                    logger.LogWarning("Authentication expired refreshing token");
+                    tenant.ResetAdminClient();
+                    await CreatePolicy(tenant, minIoPolicy, serviceProvider, ct);
+                    return;
+                }
+
+                if (!res.IsSuccessStatusCode)
+                {
+                    logger.LogError(res.Error, "Policy '{PolicyName}': Failed to create", minIoPolicy.Name);
+                    return;
+                }
+
+                logger.LogDebug("Bucket '{PolicyName}': Created successfully", minIoPolicy.Name);
+            }
+            else
+            {
+                logger.LogDebug("Policy '{PolicyName}': Already exists", minIoPolicy.Name);
+            }
+        }
+        catch (Exception exception)
+        {
+            throw new DistributedApplicationException($"Failed to create MinIO policy '{minIoPolicy.Name}'", exception);
         }
     }
 }
