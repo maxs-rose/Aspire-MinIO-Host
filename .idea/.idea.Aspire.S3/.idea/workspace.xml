@@ -9,11 +9,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aea92f23-23d6-4db9-97d0-00c1a0e41ec3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoUserResource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Aspire.S3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Aspire.S3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppHost/AppHost.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AppHost/AppHost.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIO.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIO.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/Clients/IMinioAdminClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/Clients/IMinioAdminClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoContainerImageTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoContainerImageTag.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResourceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Aspire.Hosting.MinIo/MinIoResourceExtensions.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,13 +26,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;maxs-rose&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:maxs-rose/Aspire-MinIO-Host.git&quot;,
+    &quot;accountId&quot;: &quot;da24319b-c708-4c84-8c7b-abe68155b934&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6ba4aaa2780646e5ada7d20877c43f4f1b6930/4d/f4b44dea/JsonSerializer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1e42134ae4234dcf22b4d256e32e8a938b3de96968480fcb99f1dd0a648624e/ConnectionStringAvailableEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/27c4858128168eda568c1334d70d5241efb9461e2a3209258a04deee5d9c367/JsonSerializer.Read.String.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/27f86c65242bac8528afaea61b37fa13a4b73974e3d617a7b4253b678c9e4c/IDistributedApplicationEventing.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2854ce6d56c18d0d837d3a3ef9c4f2c7c77691fa3528c8394986ac7ce7719/StackFrameIterator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/28b725554251da3ab1b6f8164a2874e4a2de84d74713ea8c91aac19bfde6bd43/ContainerResourceBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/28b725554251da3ab1b6f8164a2874e4a2de84d74713ea8c91aac19bfde6bd43/ContainerResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/364c10a8552491dd6eb1fb1982aea54bc1cce47e44e533a4f8383e8184ad7a34/ParameterResourceBuilderExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36d58214bb9298b1821d4808b3d75878085fba1d79f1467a02d76924cf9669/IBucketOperations.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/36f03a2c3d6c32ac0c82a6b773fa118fefea6ec25bc6617788b8657bf4b/ResourceCommandAnnotation.cs" root0="SKIP_HIGHLIGHTING" />
@@ -52,7 +63,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a412851722cff5a21ca15e59dced1adf5180ec8310e4e2fd37bab0765ffa85cd/Resource.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/a4f01d1e32696c7e299279caa383f69b818ea3c461f48dd4317d15e363/ParameterResource.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/aaad7f4182f2e4c8a6a57568f2538e1bf83531b2fb979a7d4f3ee66b0932cd4/S3Bucket.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ac9987ebc3168beff4393154117f99d63a966d56e2defc880d16fc837e2e3e6/ContainerResourceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ac9987ebc3168beff4393154117f99d63a966d56e2defc880d16fc837e2e3e6/ContainerResourceExtensions.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c34912c9228a491e7f8ed952cd6979b76599eed4b6625a04f14d591b844c352/ReferenceExpression.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c3ac2f803cfae8dce2e7fa3785fa1b3f18535b54ebddc21deba082aed44d8fe3/WaitAnnotation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c41b9e23abcf68e6c67fb27496b1fd1570f2f2db8cbf4d434b6096903a99/ResourceLoggerService.cs" root0="SKIP_HIGHLIGHTING" />
@@ -91,7 +102,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Aspire Host.AppHost: http.executor&quot;: &quot;Run&quot;,
-    &quot;Aspire Host.AppHost: https.executor&quot;: &quot;Debug&quot;,
+    &quot;Aspire Host.AppHost: https.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -180,7 +191,7 @@
       <workItem from="1753620428939" duration="5000" />
       <workItem from="1753620458282" duration="2000" />
       <workItem from="1753620479395" duration="24459000" />
-      <workItem from="1753646479480" duration="4726000" />
+      <workItem from="1753646479480" duration="5537000" />
     </task>
     <task id="LOCAL-00001" summary="set private assets on minio lib">
       <option name="closed" value="true" />

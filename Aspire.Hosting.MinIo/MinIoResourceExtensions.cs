@@ -46,7 +46,7 @@ public static class MinIoResourceExtensions
 
         var minioResource = builder.AddResource(minio)
             .WithImage(MinIoContainerImageTag.Image)
-            .WithImageTag(MinIoContainerImageTag.Tag)
+            .WithImageTag(MinIoContainerImageTag.Latest)
             .WithImageRegistry(MinIoContainerImageTag.Registry)
             .WithHttpEndpoint(targetPort: MinIoResource.ApiEndpointPort, name: MinIoResource.ApiEndpointName)
             .WithHttpEndpoint(targetPort: MinIoResource.ConsoleEndpointPort, name: MinIoResource.ConsoleEndpointName)
@@ -208,6 +208,9 @@ public static class MinIoResourceExtensions
         return builder;
     }
 
+    /// <remarks>
+    ///     Cannot be used if using an image produced after RELEASE.2025-04-08T15-41-24Z-cpuv1
+    /// </remarks>
     public static IResourceBuilder<MinIoPolicyResource> AddPolicy(this IResourceBuilder<MinIoResource> builder, string name, [StringSyntax(StringSyntaxAttribute.Json)] string policy)
     {
         var policyResource = new MinIoPolicyResource(name, builder.Resource, policy);
@@ -250,6 +253,9 @@ public static class MinIoResourceExtensions
             .WithHealthCheck(healthCheckKey);
     }
 
+    /// <remarks>
+    ///     Cannot be used if using an image produced after RELEASE.2025-04-08T15-41-24Z-cpuv1
+    /// </remarks>
     public static IResourceBuilder<MinIoUserResource> AddUser(this IResourceBuilder<MinIoResource> builder, string name, IResourceBuilder<ParameterResource>? secretAccessKey = null)
     {
         var user = new MinIoUserResource(

@@ -3,7 +3,8 @@ using Aspire.Hosting.MinIo.Models;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-var tenant = builder.AddMinIo("minio");
+var tenant = builder.AddMinIo("minio")
+    .WithImageTag(MinIoContainerImageTag.AdminUi);
 
 tenant.AddBucket("some-bucket").WithPolicy(BucketPolicy.Public);
 
